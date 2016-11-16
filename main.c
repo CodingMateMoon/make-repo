@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
 		{"version", no_argument, 0, 'v'},
 		{0, 0, 0, 0}
 	};
+	int long_opt_index = 0;
 
 	// When no Options
 	if( argc ==1 ) {
@@ -37,23 +38,31 @@ int main(int argc, char* argv[]) {
 
 
 	// Get Options And Switch Process
-	while((n = getopt_long(argc, argv, "pa:d:o:l:f:cv", long_options, &optind)) != -1) {
+	while((n = getopt_long(argc, argv, "pa:d:o:l:f:cv", long_options, &long_opt_index)) != -1) {
 		switch(n) {
 			case 'p' : // print Makefile
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'a' : // add file in Makefile
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'd' : // delete file in Makefile
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'o' : // set ouput file name
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'l' : // add library in Makefile
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'f' : // add flag
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'c' : // execute clean
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'v' : // print version info
+				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 		}
 	}
