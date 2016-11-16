@@ -23,6 +23,18 @@ int main(int argc, char* argv[]) {
 		{0, 0, 0, 0}
 	};
 
+	// When no Options
+	if( argc ==1 ) {
+		if(access("./Makefile", 0) == 0) {
+			if(execlp("make", "make", (char *)NULL) == -1) {
+				perror("execlp");
+			}
+		} else {
+			printf("\'Makefile\' does not exist!!\n");
+		}
+		exit(1);
+	}
+
 
 	// Get Options And Switch Process
 	while((n = getopt_long(argc, argv, "pa:d:o:l:f:cv", long_options, &optind)) != -1) {
