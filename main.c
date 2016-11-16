@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <getopt.h>
 
+extern void printMakefile(void);
+
 int main(int argc, char* argv[]) {
 	int n;
 	extern char* optarg;
@@ -42,6 +44,7 @@ int main(int argc, char* argv[]) {
 		switch(n) {
 			case 'p' : // print Makefile
 				printf("selected %s\n", long_options[long_opt_index].name);
+				printMakefile();
 				break;
 			case 'a' : // add file in Makefile
 				printf("selected %s\n", long_options[long_opt_index].name);
