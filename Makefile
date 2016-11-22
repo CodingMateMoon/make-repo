@@ -4,7 +4,7 @@
 
 CC=gcc
 CFLAGS=
-OBJS=main.o print.o
+OBJS=main.o print.o sourceList.o
 LIBS=
 all: em
 
@@ -16,6 +16,10 @@ main.o:	main.c
 
 print.o: print.c
 	$(CC)	$(CFLAGS)		-c	print.c
+
+sourceList.o: sourceList.c
+	$(CC)	$(CFLAGS)		-c	sourceList.c
+
 
 clean:
 	rm -f $(OBJS) em.out core
