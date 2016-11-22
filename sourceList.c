@@ -25,6 +25,8 @@ void printSourcefile(void) {
 		exit(1);
 	}
 
+	fprintf(stdout, "access\t\t uid\t\t mtime\t\t\t name\n");
+	fprintf(stdout, "---------------------------------------------------------------------\n");
 	while (fgets(buf, BUFSIZ, fp) != NULL) {
 		// when .o file is exist in buf
 		// (ex.o: ex.c)
@@ -64,11 +66,11 @@ void printFileInfo(char *ptok, char *pdot) {
 	pwd = getpwuid((int)fileStat.st_uid); // uid
 	mtime = localtime(&fileStat.st_mtime); // modified time
 
-	// Print File Info
-	fprintf(stdout, "%s\taccess:%s\tuid:%s\tmtime:%d.%d.%d %d:%d:%d\n", 
-			fileName, checkFileAccess(fileStat.st_mode), pwd->pw_name,
+	// Print File Info (squ : access uid mtime fileName)
+	fprintf(stdout, "%s\t %s\t %d.%d.%d %d:%d:%d\t %s\n", 
+			checkFileAccess(fileStat.st_mode), pwd->pw_name,
 			mtime->tm_year+1900, mtime->tm_mon+1, mtime->tm_mday,
-			mtime->tm_hour, mtime->tm_min, mtime->tm_sec);
+			mtime->tm_hour, mtime->tm_min, mtime->tm_sec, fileName);
 }
 
 // Check file's access permission
