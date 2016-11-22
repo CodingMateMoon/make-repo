@@ -6,7 +6,7 @@
 #include <getopt.h>
 
 extern void printMakefile(void);
-extern void printSourcefile(void);
+extern void printSourcefile(char *);
 
 int main(int argc, char* argv[]) {
 	int n;
@@ -41,13 +41,13 @@ int main(int argc, char* argv[]) {
 
 
 	// Get Options And Switch Process
-	while((n = getopt_long(argc, argv, "pso:a:d:l:f:cv", long_options, &long_opt_index)) != -1) {
+	while((n = getopt_long(argc, argv, "ps:o:a:d:l:f:cv", long_options, &long_opt_index)) != -1) {
 		switch(n) {
 			case 'p' : // print Makefile
 				printMakefile();
 				break;
 			case 's' : // print source files
-				printSourcefile();
+				printSourcefile(optarg);
 				break;
 			case 'o' : // set ouput file name
 				printf("selected %s\n", long_options[long_opt_index].name);

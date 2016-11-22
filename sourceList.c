@@ -2,6 +2,8 @@
 // create by Choi Ji-Hun. 2016.11.22
 // It is a function for em's main.c
 // print Makefile's source files When call -s or --source option
+// "--all" is print all source files
+// else is print source files that belongs string
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -15,44 +17,68 @@ void printFileInfo(char *ptok, char *pdot);
 char* checkFileAccess(unsigned int st_mode);
 char selectRWXbyIndex(int index);
 
-void printSourcefile(void) {
+// -s option's main function
+// param : findFile - belongs to the files
+void printSourcefile(char *findFile) {
 	FILE* fp;
 	char buf[BUFSIZ];
 	char *ptok, *pdot; // ptok : pointing token, pdot : pointing dot(.)
+	int fileCnt=0;
 
 	if((fp=fopen("Makefile", "r")) == NULL) {
 		perror("fopen : Makefile");
 		exit(1);
 	}
 
+	// Print header
 	fprintf(stdout, "access\t\t uid\t\t mtime\t\t\t name\n");
 	fprintf(stdout, "---------------------------------------------------------------------\n");
+
 	while (fgets(buf, BUFSIZ, fp) != NULL) {
-		// when .o file is exist in buf
-		// (ex.o: ex.c)
+
+		// Check when .o file is exist in buf
+		// (find target - ex.o: ex.c)
 		if(strstr(buf, ".o") != NULL) {
-			// starting tokenize (for find .c file)
+
+			// Starting tokenize (for find .c file)
 			ptok = strtok(buf, " \t:");
 			while(ptok != NULL) {
-				// find .c file
+
+				// Find .c file
 				if((pdot = strstr(ptok, ".c\0")) != NULL) {
-					printFileInfo(ptok, pdot);
+
+					// findFile == "--all" is print all sources
+					// else is print find sources
+					if(strcmp("--all", findFile) == 0 || strstr(ptok, findFile) != NULL) {
+						printFileInfo(ptok, pdot);
+						fileCnt++;
+					}
 				}
-				// next token
+
+				// Next token
 				ptok = strtok(NULL, " \t:");
 			}
 		}
-		
+	}
+
+	// Print result. (not found or number of found files)
+	if(fileCnt == 0) {
+		fprintf(stdout, "Not found source file or OBJS\n");
+	} else {
+		fprintf(stdout, "---------------------------------------------------------------------\n");
+		fprintf(stdout, "%d file(s)\n", fileCnt);
 	}
 
 	fclose(fp);
 }
 
+
+
 // Print file's Infomation
 // param : ptok - pointing token include fileName
-// parma : pdot - pointing file's dot(.)
+// param : pdot - pointing file's dot(.)
 void printFileInfo(char *ptok, char *pdot) {
-	char fileName[BUFSIZ];
+	char fileName[256];
 	struct stat fileStat;
 	struct passwd *pwd;
 	struct tm *mtime;
@@ -73,6 +99,7 @@ void printFileInfo(char *ptok, char *pdot) {
 			mtime->tm_hour, mtime->tm_min, mtime->tm_sec, fileName);
 }
 
+
 // Check file's access permission
 // and return string
 // param : st_mode - struct stat's st_mode
@@ -89,6 +116,7 @@ char* checkFileAccess(unsigned int st_mode) {
 	permission[index] = '\0';
 	return permission;
 }
+
 
 // For checkFileAccess()
 // index -> select 'r' or 'w' or 'x'
