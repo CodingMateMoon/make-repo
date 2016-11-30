@@ -1,16 +1,26 @@
 # Makefile
+# This Makefile use not 'em'.
+# It is temp Makefile until em is released
 
 CC=gcc
 CFLAGS=
-OBJS= emk.o emkf.o
+OBJS=main.o print.o sourceList.o
 LIBS=
-all:	add
+all: em
 
-add:	$(OBJS)
-	$(CC) $(CFLAGS) -o add $(OBJS) $(LIBS)
-emk:	emk.c
-	$(CC) $(CFLAGS) -c emk.c
-emkf:	emkf.c
-	$(CC) $(CFLAGS) -c emkf.c
+em:	$(OBJS)
+	$(CC)	$(CFLAGS)		-o	em.out	$(OBJS)	$(LIBS)
+
+main.o:	main.c
+	$(CC)	$(CFLAGS)		-c	main.c
+
+print.o: print.c
+	$(CC)	$(CFLAGS)		-c	print.c
+
+sourceList.o: sourceList.c
+	$(CC)	$(CFLAGS)		-c	sourceList.c
+
+
 clean:
-	rm -f $(OBJS) add core
+	rm -f $(OBJS) em.out core
+
