@@ -88,11 +88,15 @@ void printFileInfo(char *ptok, char *pdot) {
 	strncpy(fileName, ptok, pdot-ptok+2);
 
 	// Get File Info
+	if(access(fileName, 0) !=0 ) {
+		fprintf(stdout, "Not Access file : %s\n", fileName);
+		return;
+	}
 	stat(fileName, &fileStat);
 	pwd = getpwuid((int)fileStat.st_uid); // uid
 	mtime = localtime(&fileStat.st_mtime); // modified time
 
-	// Print File Info (squ : access uid mtime fileName)
+	// Print File Info (seq : access uid mtime fileName)
 	fprintf(stdout, "%s\t %s\t %d.%d.%d %d:%d:%d\t %s\n", 
 			checkFileAccess(fileStat.st_mode), pwd->pw_name,
 			mtime->tm_year+1900, mtime->tm_mon+1, mtime->tm_mday,
