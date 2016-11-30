@@ -7,7 +7,7 @@
 
 extern void printMakefile(void);
 extern void printSourcefile(char *);
-void modifyOutputFileName(char *fileName);
+extern void modifyOutputFileName(char *fileName);
 
 int main(int argc, char* argv[]) {
 	int n;
