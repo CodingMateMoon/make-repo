@@ -7,6 +7,7 @@
 
 extern void printMakefile(void);
 extern void printSourcefile(char *);
+void modifyOutputFileName(char *fileName);
 
 int main(int argc, char* argv[]) {
 	int n;
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) {
 				printSourcefile(optarg);
 				break;
 			case 'o' : // set ouput file name
-				printf("selected %s\n", long_options[long_opt_index].name);
+				modifyOutputFileName(optarg);
 				break;
 			case 'a' : // add file in Makefile
 				printf("selected %s\n", long_options[long_opt_index].name);
