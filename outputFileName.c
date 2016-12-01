@@ -24,8 +24,8 @@ void modifyOutputFileName(char *fileName) {
 	}
 
 	while (fgets(buf, BUFSIZ, fp) != NULL) {
-		// find : "gcc -o". -> apply new output file name 
-		if(strstr(buf, "$(CC)	$(CFLAGS)		-o")) {
+		// find : "gcc -o (filename) $(OBJS)". -> apply new output file name 
+		if( strstr(buf, "$(CC)") && strstr(buf, "-o") && strstr(buf, "$(OBJS)") ) {
 			fprintf(cfp, "		$(CC)	$(CFLAGS)		-o	%s	$(OBJS)	$(LIBS)\n", fileName);
 		} else {
 			fputs(buf, cfp);
@@ -35,27 +35,15 @@ void modifyOutputFileName(char *fileName) {
 	fclose(fp);
 
 
-
 	// copymakefile -> Makefile(overwrite)
-	if((fp=fopen("Makefile", "w")) == NULL) {
-		perror("fopen : Makefile");
+	if(remove("Makefile")) {
+		perror("remove: previous Makefile");
 		exit(1);
 	}
 
-	if((cfp = fopen("copymakefile","r")) == NULL){
-		perror("fopen:copymakefile");
+	if(rename("copymakefile", "Makefile")) {
+		perror("rename: copymakefile -> Makefile");
 		exit(1);
 	}
-
-	while (fgets(buf, BUFSIZ, cfp) != NULL) {
-		fputs(buf, fp);
-	}
-	fclose(cfp);
-	fclose(fp);
-
-
-
-	// remove compymakefile
-	remove("copymakefile");
 
 }
