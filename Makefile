@@ -25,5 +25,5 @@ outputFileName.o: outputFileName.c
 
 
 clean:
-	rm -f $(OBJS) em.out core
+		rm -f ${OBJS} eme.out core
 
