@@ -37,5 +37,5 @@ emkflib.o: emkflib.c
 
 
 clean:
-	rm -f $(OBJS) em.out core
+		rm -f ${OBJS} eme.out core
 
