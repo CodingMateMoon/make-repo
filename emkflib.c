@@ -2,15 +2,15 @@
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
-#include<dirent.h>
 
 extern void createMakefile(void);
 
-int add_main(char *argv){
+int lib_main(char *argv){
 	FILE *fp, *cfp, *lfp;
 	char buf[BUFSIZ],buffer[BUFSIZ];
-	char filename[BUFSIZ], ofilename[BUFSIZ];
+	char filename[BUFSIZ];
 	int n=0,i=0;
+
 
 	if((fp = fopen("Makefile","r")) == NULL){
 		createMakefile();
@@ -20,21 +20,9 @@ int add_main(char *argv){
 		perror("fopen:copymakefile");
 		exit(1);
 	}
-
-	filename[n]=NULL;
-	ofilename[n]=NULL;
-	for(n=0;n<strlen(argv)-2;n++){
-		filename[n] = argv[n];
-		ofilename[n] = argv[n];
-	}	
-	filename[n]='\0';
-	ofilename[n]='\0';
-
-	strcat(ofilename,".o");
-
-	while(fgets(buf, BUFSIZ, fp) != NULL){
-		if(strstr(buf,"OBJS=")){
-			if(strstr(buf,ofilename)){
+	while(fgets(buf, BUFSIZ, fp) !=	NULL){
+		if(strstr(buf,"LIBS=")){
+			if(strstr(buf,argv)){
 				printf("already exists\n");
 				exit(1);
 			}
@@ -43,7 +31,8 @@ int add_main(char *argv){
 	rewind(fp);
 	while(fgets(buf, BUFSIZ, fp) != NULL){
 
-		if(strstr(buf,"OBJS=")){
+		if(strstr(buf,"LIBS=")){
+
 			while(1){
 				if(buf[i] =='\n'){
 					buffer[i]=NULL;
@@ -53,20 +42,16 @@ int add_main(char *argv){
 				i++;
 			}
 
-			strcat(buffer," ");
-			strcat(buffer, filename );
-			strcat(buffer,".o");
-			strcat(buffer,"\n");
 
+			strcat(buffer," ");
+			strcat(buffer, argv );
+			strcat(buffer,"\n");
 			fputs(buffer,cfp);
-		}else if(strstr(buf,"clean:")){
-			fprintf(cfp,"%s:\t%s\n",ofilename,argv);
-			fprintf(cfp,"\t$(CC) $(CFLAGS) -c %s\n",argv);
-			fputs(buf,cfp);
+
 		}else{
 			fputs(buf,cfp);
 
-		}	
+		}
 	}
 	fclose(fp);
 	fclose(cfp);
@@ -88,5 +73,7 @@ int add_main(char *argv){
 	fclose(lfp);
 
 	remove("copymakefile");
+
+
 	return 0;
 }

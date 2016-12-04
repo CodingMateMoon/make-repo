@@ -54,13 +54,13 @@ int main(int argc, char* argv[]) {
 				modifyOutputFileName(optarg);
 				break;
 			case 'a' : // add file in Makefile
-				printf("selected %s\n", long_options[long_opt_index].name);
+				add_main(optarg);
 				break;
 			case 'd' : // delete file in Makefile
-				printf("selected %s\n", long_options[long_opt_index].name);
+				del_main(optarg);
 				break;
 			case 'l' : // add library in Makefile
-				printf("selected %s\n", long_options[long_opt_index].name);
+				lib_main(optarg);
 				break;
 			case 'f' : // add flag
 				printf("selected %s\n", long_options[long_opt_index].name);

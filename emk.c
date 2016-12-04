@@ -3,27 +3,28 @@
 
 void createMakefile(void) {
 
-	FILE *rfp, *wfp;
+	FILE *mfp;
 	char buf[BUFSIZ];
 	int n;
 
-	if((wfp = fopen("Makefile","w")) == NULL){
+	if((mfp = fopen("Makefile","w")) == NULL){
 		perror("fopen: Makefile");
 		exit(1);
 	}
 
-	fprintf(wfp, "# Makefile\n\n");
-	fprintf(wfp,"CC=gcc\n");
-	fprintf(wfp,"CFLAGS=\n");
-	fprintf(wfp,"OBJS=\n");
-	fprintf(wfp,"LIBS=\n");
-	fprintf(wfp,"all:\tadd\n\n");
-	fprintf(wfp,"add:\t$(OBJS)\n");
-	fprintf(wfp,"\t$(CC) $(CFLAGS) -o add $(OBJS) $(LIBS)\n");
-	fprintf(wfp,"clean:\n");
-	fprintf(wfp,"\trm -f $(OBJS) add core");
-			
-	
+	fprintf(mfp, "# Makefile\n\n");
+	fprintf(mfp,"CC=gcc\n");
+	fprintf(mfp,"CFLAGS=\n");
+	fprintf(mfp,"OBJS=\n");
+	fprintf(mfp,"LIBS=\n");
+	fprintf(mfp,"all:\ttarget_exe\n\n");
+	fprintf(mfp,"target_exe:\t$(OBJS)\n");
+	fprintf(mfp,"\t$(CC) $(CFLAGS) -o target_exe $(OBJS) $(LIBS)\n");
+	fprintf(mfp,"clean:\n");
+	fprintf(mfp,"\trm -f $(OBJS) target_exe core");
 
-	fclose(wfp);
+
+
+	fclose(mfp);
+
 }
