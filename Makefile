@@ -4,7 +4,7 @@
 
 CC=gcc
 CFLAGS=
-OBJS=main.o print.o sourceList.o outputFileName.o emk.o emkf.o emkfdel.o emkflib.o
+OBJS=main.o print.o sourceList.o outputFileName.o emk.o emkf.o emkfdel.o emkflib.o addflag.o
 LIBS= 
 all: em
 
@@ -36,6 +36,8 @@ emkflib.o: emkflib.c
 	$(CC)	$(CFLAGS)		-c	emkflib.c
 
 
+addflag.o:	addflag.c
+	$(CC) $(CFLAGS) -c addflag.c
 clean:
-		rm -f ${OBJS} eme.out core
+		rm -f $(OBJS) em.out core
 

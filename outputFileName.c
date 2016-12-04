@@ -28,7 +28,7 @@ void modifyOutputFileName(char *fileName) {
 		if( strstr(buf, "$(CC)") && strstr(buf, "-o") && strstr(buf, "$(OBJS)") ) {
 			fprintf(cfp, "		$(CC)	$(CFLAGS)		-o	%s	$(OBJS)	$(LIBS)\n", fileName);
 		} else if( strstr(buf, "rm -f") && strstr(buf, "$(OBJS)") ) {
-			fprintf(cfp, "		rm -f ${OBJS} %s core\n", fileName);
+			fprintf(cfp, "		rm -f $(OBJS) %s core\n", fileName);
 		} else {
 			fputs(buf, cfp);
 		}
