@@ -8,6 +8,7 @@
 extern void printMakefile(void);
 extern void printSourcefile(char *);
 extern void modifyOutputFileName(char *fileName);
+extern void addflag(char *option);
 
 int main(int argc, char* argv[]) {
 	int n;
@@ -63,13 +64,16 @@ int main(int argc, char* argv[]) {
 				printf("selected %s\n", long_options[long_opt_index].name);
 				break;
 			case 'f' : // add flag
-				printf("selected %s\n", long_options[long_opt_index].name);
+				addflag(optarg);
 				break;
 			case 'c' : // execute clean
-				printf("selected %s\n", long_options[long_opt_index].name);
+				if(execlp("make","make","clean",(char)NULL)==-1){
+					perror("execlp");
+				}
 				break;
 			case 'v' : // print version info
-				printf("selected %s\n", long_options[long_opt_index].name);
+				printf("Easy Makefile version 1.0\n");
+				printf("copyright 2016. JMC All rights reserved.\n");
 				break;
 		}
 	}
