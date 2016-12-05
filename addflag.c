@@ -14,7 +14,16 @@ void addflag(char *option){
 		perror("fopen:copymakefile");
 		exit(1);
 	}
-	
+
+	while(fgets(buf, BUFSIZ, fp) !=	NULL){
+		if(strstr(buf,"CFLAGS=")){
+			if(strstr(buf,option)){
+				printf("already exists\n");
+				exit(1);
+			}
+		}
+	}
+	rewind(fp);
 	while(fgets(buf,BUFSIZ,fp)!=NULL){
 		
 		if(strstr(buf,"CFLAGS=")){
