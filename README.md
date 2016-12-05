@@ -1,4 +1,4 @@
-# em (Easy Makefile)  - adbprog term project
+# em (Easy Makefile)  - advprog term project
 A program for easy use of 'GNU make' for C language
 
 usage : em [-p] [--print] [-s <file_name>] [--source <file_name>]
