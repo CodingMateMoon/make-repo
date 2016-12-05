@@ -1,7 +1,9 @@
 # em (Easy Makefile)  - advprog term project
-A program for easy use of 'GNU make' for C language
 
-usage : em [-p] [--print] [-s <file_name>] [--source <file_name>]
+## A program for easy use of 'GNU make' for C language
+
+### usage
+        em [-p] [--print] [-s <file_name>] [--source <file_name>]
            [-o <file_name>] [--output <file_name>]
            [-a <file_name>] [--add <file_name>]
            [-d <file_name>] [--delete <file_name>]
@@ -9,7 +11,7 @@ usage : em [-p] [--print] [-s <file_name>] [--source <file_name>]
            [-f <option>] [--flag <option>]
            [-c] [--clean] [-v] [--version] [-h] [--help]
 
-Details about options
+### Details about options
         -p, --print      : print Makefile's context.
         -s, --source <file_name> : print Makefile's source files. --all is print all source files.
         -o, --output <file_name> : modify Makefile's output(target) file name
