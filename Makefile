@@ -7,7 +7,7 @@ LIBS=
 all:	target_exe
 
 target_exe:	$(OBJS)
-		$(CC)	$(CFLAGS)		-o	em.out	$(OBJS)	$(LIBS)
+		$(CC)	$(CFLAGS)		-o	em	$(OBJS)	$(LIBS)
 main.o:	main.c
 	$(CC) $(CFLAGS) -c main.c
 print.o:	print.c
@@ -29,5 +29,5 @@ addflag.o:	addflag.c
 help.o:	help.c
 	$(CC) $(CFLAGS) -c help.c
 clean:
-		rm -f $(OBJS) em.out core
+		rm -f $(OBJS) em core
 

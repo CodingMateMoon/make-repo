@@ -16,10 +16,10 @@ void printHelp(void) {
 	printf("           [-c] [--clean] [-v] [--version] [-h] [--help]\n\n");
 	printf("Details about options\n");
 	printf("\t-p, --print\t : print Makefile's context.\n");
-	printf("\t-s, --source <file_name>\t : print Makefile's source files. --all is print all source files.\n");
-	printf("\t-o, --output <file_name>\t : modify Makefile's output(target) file name\n");
+	printf("\t-s, --source <file_name> : print Makefile's source files. --all is print all source files.\n");
+	printf("\t-o, --output <file_name> : modify Makefile's output(target) file name\n");
 	printf("\t-a, --add <file_name>\t : Add Makefile's source files\n");
-	printf("\t-d, --delete <file_name>\t : Delete Makefile's source files\n");
+	printf("\t-d, --delete <file_name> : Delete Makefile's source files\n");
 	printf("\t-l, --lib <library>\t : Add Makefile's libraries\n");
 	printf("\t-f, --flag <option>\t : Add Makefile's compile options\n");
 	printf("\t-c, --clean\t : execute make's clean\n");
