@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 
+// param : fileName - new target file name 
 void modifyOutputFileName(char *fileName) {
 	FILE* fp, *cfp;
 	char buf[BUFSIZ];
@@ -24,9 +25,10 @@ void modifyOutputFileName(char *fileName) {
 	}
 
 	while (fgets(buf, BUFSIZ, fp) != NULL) {
-		// find : "gcc -o (filename) $(OBJS)". -> apply new output file name 
+		// find : "gcc -o (filename) $(OBJS)". -> apply new output file name in default make
 		if( strstr(buf, "$(CC)") && strstr(buf, "-o") && strstr(buf, "$(OBJS)") ) {
 			fprintf(cfp, "		$(CC)	$(CFLAGS)		-o	%s	$(OBJS)	$(LIBS)\n", fileName);
+		// find : "rm -f $(OBJS)". -> apply new output file name in clean option
 		} else if( strstr(buf, "rm -f") && strstr(buf, "$(OBJS)") ) {
 			fprintf(cfp, "		rm -f $(OBJS) %s core\n", fileName);
 		} else {
