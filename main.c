@@ -16,17 +16,13 @@ extern void addflag(char *option);
 extern void printHelp(void);
 
 int main(int argc, char* argv[]) {
-<<<<<<< HEAD
 	// select .c file
 	DIR *dp;
 	struct dirent *dent;
 	char *cwd;
 	int i;
-
-	int n;
-=======
 	int n, opt_cnt=0;
->>>>>>> origin/master
+
 	extern char* optarg;
 	extern int optind;
 	// long options 

@@ -31,8 +31,3 @@ help.o:	help.c
 clean:
 		rm -f $(OBJS) em core
 
-ex1.o:	ex1.c
-	$(CC) $(CFLAGS) -c ex1.c
-
-clean:
-	rm -f $(OBJS) target_exe core
