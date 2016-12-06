@@ -61,7 +61,7 @@ int add_main(char *argv){
 			fputs(buffer,cfp);
 		}else if(strstr(buf,"clean:")){
 			fprintf(cfp,"%s:\t%s\n",ofilename,argv);
-			fprintf(cfp,"\t$(CC) $(CFLAGS) -c %s\n",argv);
+			fprintf(cfp,"\t$(CC) $(CFLAGS) -c %s\n\n",argv);
 			fputs(buf,cfp);
 		}else{
 			fputs(buf,cfp);

@@ -11,7 +11,6 @@ int del_main(char *argv){
 	char *index = NULL;
 	int n=0,i=0,j=0,k=0;
 
-
 	memset(filename, 0, sizeof(filename));
 	memset(ofilename, 0, sizeof(ofilename));
 	memset(buf, 0, sizeof(buf));
@@ -62,6 +61,8 @@ int del_main(char *argv){
 
 			fputs(buffer,cfp);
 		}else if(strstr(buf,filename)){
+			memset(buf, 0, sizeof(buf));
+			fputs(buf,cfp);
 		}else{
 			fputs(buf,cfp);
 		}

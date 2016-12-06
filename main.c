@@ -4,13 +4,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <getopt.h>
+#include <dirent.h>
 
 extern void printMakefile(void);
 extern void printSourcefile(char *);
 extern void modifyOutputFileName(char *fileName);
+extern void add_main(char *option);
+extern void del_main(char *option);
+extern void lib_main(char *option);
 extern void addflag(char *option);
 
 int main(int argc, char* argv[]) {
+	// select .c file
+	DIR *dp;
+	struct dirent *dent;
+	char *cwd;
+	int i;
+
 	int n;
 	extern char* optarg;
 	extern int optind;
@@ -55,7 +65,24 @@ int main(int argc, char* argv[]) {
 				modifyOutputFileName(optarg);
 				break;
 			case 'a' : // add file in Makefile
-				add_main(optarg);
+				if(!strcmp(optarg,"--all")){
+					cwd = getcwd(NULL, BUFSIZ);
+					if((dp = opendir(cwd)) == NULL){
+						perror("opendir : cwd");
+						exit(1);
+					}
+					while((dent = readdir(dp))){
+						for(i=(int)strlen(dent->d_name);i>=0;i--){
+							if(dent->d_name[i] == 'c'){
+								if(dent->d_name[i-1] == '.'){
+									add_main(dent->d_name);
+								}
+							}
+						}
+					}
+				}else{
+					add_main(optarg);
+				}
 				break;
 			case 'd' : // delete file in Makefile
 				del_main(optarg);
