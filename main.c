@@ -9,12 +9,14 @@
 extern void printMakefile(void);
 extern void printSourcefile(char *);
 extern void modifyOutputFileName(char *fileName);
-extern void add_main(char *option);
-extern void del_main(char *option);
-extern void lib_main(char *option);
+extern void add_main(char *fileName);
+extern void del_main(char *fileName);
+extern void lib_main(char *lib);
 extern void addflag(char *option);
+extern void printHelp(void);
 
 int main(int argc, char* argv[]) {
+<<<<<<< HEAD
 	// select .c file
 	DIR *dp;
 	struct dirent *dent;
@@ -22,6 +24,9 @@ int main(int argc, char* argv[]) {
 	int i;
 
 	int n;
+=======
+	int n, opt_cnt=0;
+>>>>>>> origin/master
 	extern char* optarg;
 	extern int optind;
 	// long options 
@@ -35,25 +40,14 @@ int main(int argc, char* argv[]) {
 		{"flag", required_argument, 0, 'f'},
 		{"clean", no_argument, 0, 'c'},
 		{"version", no_argument, 0, 'v'},
+		{"help", no_argument, 0, 'h'},
 		{0, 0, 0, 0}
 	};
 	int long_opt_index = 0;
 
-	// When no Options
-	if( argc ==1 ) {
-		if(access("./Makefile", 0) == 0) {
-			if(execlp("make", "make", (char *)NULL) == -1) {
-				perror("execlp");
-			}
-		} else {
-			printf("\'Makefile\' does not exist!!\n");
-		}
-		exit(1);
-	}
-
 
 	// Get Options And Switch Process
-	while((n = getopt_long(argc, argv, "ps:o:a:d:l:f:cv", long_options, &long_opt_index)) != -1) {
+	while((n = getopt_long(argc, argv, "ps:o:a:d:l:f:cvh", long_options, &long_opt_index)) != -1) {
 		switch(n) {
 			case 'p' : // print Makefile
 				printMakefile();
@@ -102,8 +96,27 @@ int main(int argc, char* argv[]) {
 				printf("Easy Makefile version 1.0\n");
 				printf("copyright 2016. JMC All rights reserved.\n");
 				break;
+			default :
+				printHelp();
 		}
+		opt_cnt++;
 	}
+
+
+	// When no Options
+	if( argc ==1 || (argc==2 && opt_cnt==0)) {
+		if(access("./Makefile", 0) == 0) {
+			if(execlp("make", "make", argv[1], (char*)NULL) == -1) {
+				perror("execlp");
+				exit(1);
+			}
+		} else {
+			printf("\'Makefile\' does not exist!!\n");
+		}
+	} else if(opt_cnt==0) {
+		printHelp();
+	}
+
 
 	return 0;
 }

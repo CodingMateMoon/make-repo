@@ -21,7 +21,7 @@ void createMakefile(void) {
 	fprintf(mfp,"target_exe:\t$(OBJS)\n");
 	fprintf(mfp,"\t$(CC) $(CFLAGS) -o target_exe $(OBJS) $(LIBS)\n");
 	fprintf(mfp,"clean:\n");
-	fprintf(mfp,"\trm -f $(OBJS) target_exe core");
+	fprintf(mfp,"\trm -f $(OBJS) target_exe core\n");
 
 
 
